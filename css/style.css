@@ -14,9 +14,14 @@ ul, p, li {
 }
 
 .logo {
+    text-align: center;
     width: 50%;
     min-width: 300px;
     max-width: 500px;
+}
+
+h1 {
+    display: none;
 }
 
 .flex {
