@@ -1,7 +1,7 @@
-const resultsContainer = document.getElementById('resultsContainer');
 const jobTitleInput = document.getElementById('jobTitle');
 const jobLocationInput = document.getElementById('jobLocation');
 const searchBtn = document.getElementById('searchBtn');
+const resultsContainer = document.getElementById('resultsContainer');
 
 
 function searchJobs(title, location) {
@@ -11,29 +11,33 @@ function searchJobs(title, location) {
         resultsContainer.lastChild.remove();
     }
 
-    title = jobTitleInput.value.toLowerCase();
-    location = jobLocationInput.value.toLowerCase();
+    title = jobTitleInput.value.trim().toLowerCase();
+    location = jobLocationInput.value.trim().toLowerCase();
 
-    let results = [];
+    let findings = {
+        results : [],
+        count : 0
+    };
 
     const counterContainer = document.createElement('p');
     counterContainer.classList.add('grey-light-color');
 
     jobs.forEach(job => {
         if (job.title.toLowerCase().includes(title) && job.location.toLowerCase().includes(location)) {
-            results.push(job);
+            findings.results.push(job);
+            findings.count ++
         }
     })
 
-    if (results.length > 0) {
+    if (findings.results.length > 0) {
         const itemsList = document.createElement('ul');
         itemsList.classList.add('flex');
         
-        counterContainer.innerHTML = "Offers we found for you: " + results.length; 
+        counterContainer.innerHTML = "Offers we found for you: " + findings.count; 
         
         resultsContainer.append(counterContainer, itemsList);
 
-        results.forEach(result => {
+        findings.results.forEach(result => {
             const item = document.createElement('li');
             item.classList.add('flex')
             
@@ -46,8 +50,6 @@ function searchJobs(title, location) {
 
             itemsList.append(item);
             item.append(infoTitle, infolocation);
-
-
         })
     } else {
         counterContainer.innerHTML = "Sorry we couldn’t find any results";
@@ -56,6 +58,8 @@ function searchJobs(title, location) {
 
     jobTitleInput.value = "";
     jobLocationInput.value = "";
+
+    return findings;
 } 
 
 searchBtn.addEventListener('click', searchJobs)
