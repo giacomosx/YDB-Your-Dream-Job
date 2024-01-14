@@ -5,30 +5,26 @@ const resultsContainer = document.getElementById('resultsContainer');
 
 
 function searchJobs(title, location) {
-
-    if (resultsContainer.childElementCount > 0) {
-        resultsContainer.firstChild.remove();
-        resultsContainer.lastChild.remove();
-    }
-
-    title = jobTitleInput.value.trim().toLowerCase();
-    location = jobLocationInput.value.trim().toLowerCase();
-
     let findings = {
         results : [],
         count : 0
-    };
-
-    const counterContainer = document.createElement('p');
-    counterContainer.classList.add('grey-light-color');
-
+    }
+   
     jobs.forEach(job => {
         if (job.title.toLowerCase().includes(title) && job.location.toLowerCase().includes(location)) {
             findings.results.push(job);
             findings.count ++
         }
     })
+    return findings;
+} 
 
+
+function showFindings(findings) {
+
+    const counterContainer = document.createElement('p');
+    counterContainer.classList.add('grey-light-color');
+    
     if (findings.results.length > 0) {
         const itemsList = document.createElement('ul');
         itemsList.classList.add('flex');
@@ -55,11 +51,21 @@ function searchJobs(title, location) {
         counterContainer.innerHTML = "Sorry we couldn’t find any results";
         resultsContainer.append(counterContainer); 
     }
+}
+
+
+searchBtn.addEventListener('click', function () {
+
+    const jobTitle = jobTitleInput.value.trim().toLowerCase();
+    const jobLocation = jobLocationInput.value.trim().toLowerCase();
+    
+    if (resultsContainer.childElementCount > 0) {
+        resultsContainer.firstChild.remove();
+        resultsContainer.lastChild.remove();
+    } 
+    
+    showFindings(searchJobs(jobTitle, jobLocation));
 
     jobTitleInput.value = "";
     jobLocationInput.value = "";
-
-    return findings;
-} 
-
-searchBtn.addEventListener('click', searchJobs)
+})
