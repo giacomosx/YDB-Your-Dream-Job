@@ -2,8 +2,6 @@ Epicode - M2 - Programming Foundations: W4D1 Practice
 
 # YDB Your Dream Job
 
-### Preview
-
 ![App Screenshot](https://raw.githubusercontent.com/giacomosx/YDB-Your-Dream-Job/main/screenshots/preview.png)
  
 ## PARTE 1: 
